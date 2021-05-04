@@ -1002,7 +1002,7 @@ export var tns = function(options) {
     updateSlideStatus();
 
     // == live region ==
-    outerWrapper.insertAdjacentHTML('afterbegin', '<div class="tns-liveregion visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">' + getLiveRegionStr() + '</span>  of ' + slideCount + '</div>');
+    outerWrapper.insertAdjacentHTML('afterbegin', '<div class="tns-liveregion visually-hidden">slide <span class="current">' + getLiveRegionStr() + '</span>  of ' + slideCount + '</div>');
     liveregionCurrent = outerWrapper.querySelector('.tns-liveregion .current');
 
     // == autoplayInit ==
