@@ -273,6 +273,7 @@ export interface TinySliderSettings extends CommonOptions {
 export interface TinySliderInfo {
     event: Event | {}
     cloneCount: number;
+    mode: string;
     container: HTMLElement;
     controlsContainer?: boolean;
     hasControls: boolean;
