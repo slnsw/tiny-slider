@@ -27,7 +27,11 @@
     "dist",
     "src"
   ],
-  "keywords": [],
+  "keywords": [
+    "slider",
+    "vanilla js",
+    "carousel"
+  ],
   "author": "ganlanyuan <ganlanyuan@gmail.com>",
   "license": "MIT",
   "bugs": {
