@@ -2,11 +2,30 @@
   "name": "@justia/tiny-slider",
   "version": "2.9.3",
   "description": "Vanilla javascript slider for all purposes, inspired by Owl Carousel.",
+  "keywords": [
+    "slider",
+    "vanilla js",
+    "carousel"
+  ],
+  "homepage": "https://github.com/justia/tiny-slider#readme",
+  "bugs": {
+    "url": "https://github.com/justia/tiny-slider/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justia/tiny-slider.git"
+  },
+  "license": "MIT",
+  "author": "ganlanyuan <ganlanyuan@gmail.com>",
   "main": "dist/tiny-slider.js",
   "types": "src/tiny-slider.d.ts",
   "directories": {
     "test": "test"
   },
+  "files": [
+    "dist",
+    "src/tiny-slider.d.ts"
+  ],
   "scripts": {
     "ngrok": "~/ngrok http 3000",
     "start": "nodemon --watch test/js/tests-async.js --exec npm run compile",
@@ -19,33 +38,6 @@
     "safari": "nightwatch -c browserstack.conf.js -e safari",
     "opera": "nightwatch -c browserstack.conf.js -e opera"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/justia/tiny-slider.git"
-  },
-  "files": [
-    "dist",
-    "src/tiny-slider.d.ts"
-  ],
-  "keywords": [
-    "slider",
-    "vanilla js",
-    "carousel"
-  ],
-  "author": "ganlanyuan <ganlanyuan@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/justia/tiny-slider/issues"
-  },
-  "homepage": "https://github.com/justia/tiny-slider#readme",
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "nightwatch": "^1.3.5",
-    "nodemon": "^2.0.3"
-  },
   "browserify": {
     "transform": [
       [
@@ -57,5 +49,13 @@
         }
       ]
     ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nightwatch": "^1.3.5",
+    "nodemon": "^2.0.3"
   }
 }
