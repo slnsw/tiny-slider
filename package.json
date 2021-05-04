@@ -18,13 +18,11 @@
   "license": "MIT",
   "author": "ganlanyuan <ganlanyuan@gmail.com>",
   "main": "dist/tiny-slider.js",
-  "types": "src/tiny-slider.d.ts",
   "directories": {
     "test": "test"
   },
   "files": [
-    "dist",
-    "src/tiny-slider.d.ts"
+    "dist"
   ],
   "scripts": {
     "ngrok": "~/ngrok http 3000",
