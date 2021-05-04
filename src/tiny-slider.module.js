@@ -1002,7 +1002,7 @@ export var tns = function(options) {
     updateSlideStatus();
 
     // == live region ==
-    outerWrapper.insertAdjacentHTML('afterbegin', '<div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">' + getLiveRegionStr() + '</span>  of ' + slideCount + '</div>');
+    outerWrapper.insertAdjacentHTML('afterbegin', `<div class="tns-liveregion visually-hidden">slide <span class="current">${getLiveRegionStr()}</span> of ${slideCount}</div>`);
     liveregionCurrent = outerWrapper.querySelector('.tns-liveregion .current');
 
     // == autoplayInit ==
@@ -1714,7 +1714,7 @@ export var tns = function(options) {
     var arr = getVisibleSlideRange(),
         start = arr[0] + 1,
         end = arr[1] + 1;
-    return start === end ? start + '' : start + ' to ' + end;
+    return start === end ? arr[0] : arr[0] + ' to ' + arr[1];
   }
 
   function getVisibleSlideRange (val) {
@@ -1779,8 +1779,8 @@ export var tns = function(options) {
         }
       }
 
-      start = Math.max(start, 0);
-      end = Math.min(end, slideCountNew - 1);
+      start = getAbsIndex(Math.max(start, 0)) + 1;
+      end = getAbsIndex(Math.min(end, slideCountNew - 1)) + 1;
     }
 
     return [start, end];
