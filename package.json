@@ -27,6 +27,10 @@
   "scripts": {
     "ngrok": "~/ngrok http 3000",
     "start": "nodemon --watch test/js/tests-async.js --exec npm run compile",
+    "build": "babel src --out-dir ./dist",
+    "release:types": "cp src/tiny-slider.d.ts dist/",
+    "release:cleanup": "git checkout . && git clean -df",
+    "release": "npm run release:types && npm run build && npm publish && npm run release:cleanup",
     "compile": "npx babel test/js/tests-async.js -o test/js/tests-async-es5.js",
     "test": "nightwatch -c browserstack.conf.js -e chrome,firefox,ie,edge,safari,opera",
     "chrome": "nightwatch -c browserstack.conf.js -e chrome",
