@@ -1714,7 +1714,7 @@ export var tns = function(options) {
     var arr = getVisibleSlideRange(),
         start = getAbsIndex(arr[0]) + 1,
         end = getAbsIndex(arr[1]) + 1;
-    return start === end ? start : start + ' to ' + end;
+    return start === end ? start : `${start} to ${end}`;
   }
 
   function getVisibleSlideRange (val) {
