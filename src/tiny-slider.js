@@ -1712,9 +1712,9 @@ export var tns = function(options) {
 
   function getLiveRegionStr () {
     var arr = getVisibleSlideRange(),
-        start = arr[0] + 1,
-        end = arr[1] + 1;
-    return start === end ? arr[0] : arr[0] + ' to ' + arr[1];
+        start = getAbsIndex(arr[0]) + 1,
+        end = getAbsIndex(arr[1]) + 1;
+    return start === end ? start : `${start} to ${end}`;
   }
 
   function getVisibleSlideRange (val) {
@@ -1779,8 +1779,8 @@ export var tns = function(options) {
         }
       }
 
-      start = getAbsIndex(Math.max(start, 0)) + 1;
-      end = getAbsIndex(Math.min(end, slideCountNew - 1)) + 1;
+      start = Math.max(start, 0);
+      end = Math.min(end, slideCountNew - 1);
     }
 
     return [start, end];
