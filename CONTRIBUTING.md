@@ -1,3 +1,4 @@
+<!-- TODO: Update this to match our own contribution guidelines  -->
 # Contributing to Tiny-slider
 Thanks for considering contributing to Tiny-slider. :tada: :clap:
 With the help of contributors like you, Tiny-slider will work better for everyone.
