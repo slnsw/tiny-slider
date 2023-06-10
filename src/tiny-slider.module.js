@@ -2147,8 +2147,6 @@ export var tns = function(options) {
           // for old browser with non-zero duration
           jsTransform(container, transformAttr, transformPrefix, transformPostfix, getContainerTransformValue(), speed, onTransitionEnd);
         }
-
-        if (!horizontal) { updateContentWrapperHeight(); }
       } :
       function () {
         slideItemsOut = [];
