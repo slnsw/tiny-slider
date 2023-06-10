@@ -2678,7 +2678,19 @@ export var tns = function(options) {
   // (slidePositions, index, items) => vertical_conentWrapper.height
   function updateContentWrapperHeight () {
     var wp = middleWrapper ? middleWrapper : innerWrapper;
-    wp.style.height = slidePositions[index + items] - slidePositions[index] + 'px';
+
+    if (horizontal || getOption('autoHeight')) {
+      wp.style.height = slidePositions[index + items] - slidePositions[index] + 'px';
+      return;
+    }
+
+    var { height: tallestItemHeight } = slideItems[0].getBoundingClientRect();
+    var heightInPx = `${tallestItemHeight}px`;
+
+    // set the height of the tallest item on the wrapper and all the slides
+    setSlidesHeight(wp, heightInPx);
+    // update slide positions
+    setSlidePositions();
   }
 
   function getPages () {
