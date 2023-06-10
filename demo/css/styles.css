@@ -1,4 +1,8 @@
 body { font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; margin: 0; padding: 0; }
+main {
+  max-width: min(95%, 1200px);
+  margin: 25px auto;
+}
 li { list-style: none; }
 ul, ol, li { margin: 0; padding: 0; }
 /*.container {
