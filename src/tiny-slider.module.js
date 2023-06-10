@@ -1294,7 +1294,9 @@ export var tns = function(options) {
     if ((!horizontal || autoWidth) && !disable) {
       setSlidePositions();
       if (!horizontal) {
-        updateContentWrapperHeight(); // <= setSlidePositions
+        updateContentWrapperHeight({
+          reset: true
+        }); // <= setSlidePositions
         needContainerTransform = true;
       }
     }
@@ -2676,8 +2678,12 @@ export var tns = function(options) {
 
   // === RESIZE FUNCTIONS === //
   // (slidePositions, index, items) => vertical_conentWrapper.height
-  function updateContentWrapperHeight () {
+  function updateContentWrapperHeight (options = { reset: false }) {
     var wp = middleWrapper ? middleWrapper : innerWrapper;
+
+    if (options.reset) {
+      setSlidesHeight(wp);
+    }
 
     if (horizontal || getOption('autoHeight')) {
       wp.style.height = slidePositions[index + items] - slidePositions[index] + 'px';
