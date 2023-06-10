@@ -2666,6 +2666,14 @@ export var tns = function(options) {
     if (autoplay && !animating) { setAutoplayTimer(); }
   }
 
+  function setSlidesHeight(wrapper, height = '') {
+    wrapper.style.height = height;
+
+    Array.from(slideItems).forEach((item) => {
+      item.style.height = height;
+    });
+  }
+
   // === RESIZE FUNCTIONS === //
   // (slidePositions, index, items) => vertical_conentWrapper.height
   function updateContentWrapperHeight () {
