@@ -1294,7 +1294,9 @@ export var tns = function(options) {
     if ((!horizontal || autoWidth) && !disable) {
       setSlidePositions();
       if (!horizontal) {
-        updateContentWrapperHeight(); // <= setSlidePositions
+        updateContentWrapperHeight({
+          reset: true
+        }); // <= setSlidePositions
         needContainerTransform = true;
       }
     }
@@ -2145,8 +2147,6 @@ export var tns = function(options) {
           // for old browser with non-zero duration
           jsTransform(container, transformAttr, transformPrefix, transformPostfix, getContainerTransformValue(), speed, onTransitionEnd);
         }
-
-        if (!horizontal) { updateContentWrapperHeight(); }
       } :
       function () {
         slideItemsOut = [];
@@ -2666,11 +2666,35 @@ export var tns = function(options) {
     if (autoplay && !animating) { setAutoplayTimer(); }
   }
 
+  function setSlidesHeight(wrapper, height = '') {
+    wrapper.style.height = height;
+
+    Array.from(slideItems).forEach((item) => {
+      item.style.height = height;
+    });
+  }
+
   // === RESIZE FUNCTIONS === //
   // (slidePositions, index, items) => vertical_conentWrapper.height
-  function updateContentWrapperHeight () {
+  function updateContentWrapperHeight (options = { reset: false }) {
     var wp = middleWrapper ? middleWrapper : innerWrapper;
-    wp.style.height = slidePositions[index + items] - slidePositions[index] + 'px';
+
+    if (options.reset) {
+      setSlidesHeight(wp);
+    }
+
+    if (horizontal || getOption('autoHeight')) {
+      wp.style.height = slidePositions[index + items] - slidePositions[index] + 'px';
+      return;
+    }
+
+    var { height: tallestItemHeight } = slideItems[0].getBoundingClientRect();
+    var heightInPx = `${tallestItemHeight}px`;
+
+    // set the height of the tallest item on the wrapper and all the slides
+    setSlidesHeight(wp, heightInPx);
+    // update slide positions
+    setSlidePositions();
   }
 
   function getPages () {
@@ -2736,7 +2760,7 @@ export var tns = function(options) {
   }
 
   return {
-    version: '2.9.8',
+    version: '2.9.9',
     getInfo: info,
     events: events,
     goTo: goTo,
