@@ -2699,7 +2699,7 @@ export var tns = function(options) {
       return;
     }
 
-    var { height: tallestItemHeight } = slideItems[0].getBoundingClientRect();
+    var { height: tallestItemHeight } = getTallestItem().getBoundingClientRect();
     var heightInPx = `${tallestItemHeight}px`;
 
     // set the height of the tallest item on the wrapper and all the slides
