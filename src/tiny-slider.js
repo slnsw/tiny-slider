@@ -2674,6 +2674,17 @@ export var tns = function(options) {
     });
   }
 
+  function getTallestItem() {
+    var itemsOrderedByHeight = Array.from(slideItems).sort((a, b) => {
+        var aHeight = a.getBoundingClientRect().height;
+        var bHeight = b.getBoundingClientRect().height;
+
+        return bHeight - aHeight;
+    });
+
+    return itemsOrderedByHeight[0];
+  }
+
   // === RESIZE FUNCTIONS === //
   // (slidePositions, index, items) => vertical_conentWrapper.height
   function updateContentWrapperHeight (options = { reset: false }) {
