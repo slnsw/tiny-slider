@@ -3113,6 +3113,17 @@ var tns = function(options) {
     });
   }
 
+  function getTallestItem() {
+    var itemsOrderedByHeight = Array.from(slideItems).sort((a, b) => {
+        var aHeight = a.getBoundingClientRect().height;
+        var bHeight = b.getBoundingClientRect().height;
+
+        return bHeight - aHeight;
+    });
+
+    return itemsOrderedByHeight[0];
+  }
+
   // === RESIZE FUNCTIONS === //
   // (slidePositions, index, items) => vertical_conentWrapper.height
   function updateContentWrapperHeight (options = { reset: false }) {
@@ -3127,7 +3138,7 @@ var tns = function(options) {
       return;
     }
 
-    var { height: tallestItemHeight } = slideItems[0].getBoundingClientRect();
+    var { height: tallestItemHeight } = getTallestItem().getBoundingClientRect();
     var heightInPx = `${tallestItemHeight}px`;
 
     // set the height of the tallest item on the wrapper and all the slides
@@ -3199,7 +3210,7 @@ var tns = function(options) {
   }
 
   return {
-    version: '2.9.9',
+    version: '2.9.10',
     getInfo: info,
     events: events,
     goTo: goTo,
