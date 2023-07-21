@@ -1,17 +1,37 @@
 {
-  "name": "tiny-slider",
-  "version": "2.9.4",
+  "name": "@justia/tiny-slider",
+  "version": "2.9.10",
   "description": "Vanilla javascript slider for all purposes, inspired by Owl Carousel.",
+  "keywords": [
+    "slider",
+    "vanilla js",
+    "carousel"
+  ],
+  "homepage": "https://github.com/justia/tiny-slider#readme",
+  "bugs": {
+    "url": "https://github.com/justia/tiny-slider/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justia/tiny-slider.git"
+  },
+  "license": "MIT",
+  "author": "ganlanyuan <ganlanyuan@gmail.com>",
   "main": "dist/tiny-slider.js",
-  "types": "src/tiny-slider.d.ts",
   "directories": {
     "test": "test"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "ngrok": "~/ngrok http 3000",
     "start": "nodemon --watch test/js/tests-async.js --exec npm run compile",
-    "compile": "npx babel test/js/tests-async.js -o test/js/tests-async-es5.js",
     "build": "rollup --config rollup.config.js",
+    "release:types": "cp src/tiny-slider.d.ts dist/",
+    "release:cleanup": "git checkout . && git clean -df",
+    "release": "npm run release:types && npm run build && npm publish && npm run release:cleanup",
+    "compile": "npx babel test/js/tests-async.js -o test/js/tests-async-es5.js",
     "build-watch": "babel --watch src -o dist/tiny-slider.js",
     "prepare": "npm run build",
     "test": "nightwatch -c browserstack.conf.js -e chrome,firefox,ie,edge,safari,opera",
@@ -22,22 +42,11 @@
     "safari": "nightwatch -c browserstack.conf.js -e safari",
     "opera": "nightwatch -c browserstack.conf.js -e opera"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ganlanyuan/tiny-slider.git"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "keywords": [],
-  "author": "ganlanyuan <ganlanyuan@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ganlanyuan/tiny-slider/issues"
-  },
   "browserslist": "> 0.25%, not dead",
-  "homepage": "https://github.com/ganlanyuan/tiny-slider#readme",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7"
+  },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.15.0",
@@ -45,6 +54,7 @@
     "@babel/preset-env": "^7.15.0",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^20.0.0",
+    "gulp-uglify-es": "^3.0.0",
     "nightwatch": "^1.7.11",
     "nodemon": "^2.0.3",
     "rollup": "^2.56.3"

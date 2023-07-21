@@ -207,5 +207,3 @@ if (!Array.prototype.indexOf) {
     };
   } 
 })();
-
-// import "./ie8/isArray.js";

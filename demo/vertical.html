@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vertical</title>
+    <link rel="stylesheet" href="../dist/tiny-slider.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .item {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .item h2 {
+            margin-top: 0;
+        }
+
+        /*
+        * Increasing font size here to corroborate that the slides height
+        * will be properly adjusted on resize.
+         */
+        @media screen and (min-width: 768px) {
+            .item {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Vertical</h1>
+    <div class="container vertical">
+        <div class="item" style="background-color: lightcoral">
+            <h2>1</h2>
+            <p>This is the second tallest item</p>
+            <p>Or the second shortest item</p>
+        </div>
+        <div class="item" style="background-color: lightblue">
+            <h2>2</h2>
+        </div>
+        <div class="item" style="background-color: lightseagreen">
+            <h2>3</h2>
+            <p>This is the largest item</p>
+            <p>Lorem Ipsum Dolor Sit</p>
+            <p>Ideally, the rest of the items should have the same height as this one</p>
+        </div>
+    </div>
+</main>
+<script src="../dist/min/tiny-slider.js"></script>
+<script>
+    const container = document.querySelector('.container');
+    tns({
+        container,
+        items: 1,
+        slideBy: 1,
+        axis: 'vertical'
+    })
+</script>
+</body>
+</html>

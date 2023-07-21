@@ -4,6 +4,7 @@ const babel = require('rollup-plugin-babel');
 
 const gulp = require('gulp');
 const packages = require('/www/package.json');
+const uglify = require('gulp-uglify-es').default;
 const $ = require('gulp-load-plugins')({
   config: packages
 });
@@ -142,7 +143,7 @@ gulp.task('makeDevCopy', function() {
 gulp.task('min', ['editPro'], function () {
   return gulp.src(pathDest + '*.js')
     .pipe($.sourcemaps.init())
-    .pipe($.uglify())
+    .pipe(uglify())
     .pipe($.sourcemaps.write('../' + sourcemapsDest))
     .pipe(gulp.dest(pathDest + 'min'))
 })
@@ -196,6 +197,13 @@ gulp.task('server', function() {
   // gulp.watch([pathTest + testScript], ['test']);
   gulp.watch(['**/*.html', pathTest + '*.js', '!' + pathTest + 'tests-async.js', pathDest + '*.css', pathDest + 'min/*.js']).on('change', browserSync.reload);
 });
+
+// Build Task
+gulp.task('build', [
+  'sass',
+  'min',
+  'helper-ie8'
+]);
 
 // Default Task
 gulp.task('default', [

@@ -1,16 +1,3 @@
-// Object.keys
-if (!Object.keys) {
-  Object.keys = function(object) {
-    var keys = [];
-    for (var name in object) {
-      if (Object.prototype.hasOwnProperty.call(object, name)) {
-        keys.push(name);
-      }
-    }
-    return keys;
-  };
-}
-
 // ChildNode.remove
 if(!("remove" in Element.prototype)){
   Element.prototype.remove = function(){
@@ -1002,7 +989,7 @@ export var tns = function(options) {
     updateSlideStatus();
 
     // == live region ==
-    outerWrapper.insertAdjacentHTML('afterbegin', '<div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">' + getLiveRegionStr() + '</span>  of ' + slideCount + '</div>');
+    outerWrapper.insertAdjacentHTML('afterbegin', `<div class="tns-liveregion visually-hidden">slide <span class="current">${getLiveRegionStr()}</span> of ${slideCount}</div>`);
     liveregionCurrent = outerWrapper.querySelector('.tns-liveregion .current');
 
     // == autoplayInit ==
@@ -1307,7 +1294,9 @@ export var tns = function(options) {
     if ((!horizontal || autoWidth) && !disable) {
       setSlidePositions();
       if (!horizontal) {
-        updateContentWrapperHeight(); // <= setSlidePositions
+        updateContentWrapperHeight({
+          reset: true
+        }); // <= setSlidePositions
         needContainerTransform = true;
       }
     }
@@ -1712,9 +1701,9 @@ export var tns = function(options) {
 
   function getLiveRegionStr () {
     var arr = getVisibleSlideRange(),
-        start = arr[0] + 1,
-        end = arr[1] + 1;
-    return start === end ? start + '' : start + ' to ' + end;
+        start = getAbsIndex(arr[0]) + 1,
+        end = getAbsIndex(arr[1]) + 1;
+    return start === end ? start : `${start} to ${end}`;
   }
 
   function getVisibleSlideRange (val) {
@@ -2158,8 +2147,6 @@ export var tns = function(options) {
           // for old browser with non-zero duration
           jsTransform(container, transformAttr, transformPrefix, transformPostfix, getContainerTransformValue(), speed, onTransitionEnd);
         }
-
-        if (!horizontal) { updateContentWrapperHeight(); }
       } :
       function () {
         slideItemsOut = [];
@@ -2679,11 +2666,46 @@ export var tns = function(options) {
     if (autoplay && !animating) { setAutoplayTimer(); }
   }
 
+  function setSlidesHeight(wrapper, height = '') {
+    wrapper.style.height = height;
+
+    Array.from(slideItems).forEach((item) => {
+      item.style.height = height;
+    });
+  }
+
+  function getTallestItem() {
+    var itemsOrderedByHeight = Array.from(slideItems).sort((a, b) => {
+        var aHeight = a.getBoundingClientRect().height;
+        var bHeight = b.getBoundingClientRect().height;
+
+        return bHeight - aHeight;
+    });
+
+    return itemsOrderedByHeight[0];
+  }
+
   // === RESIZE FUNCTIONS === //
   // (slidePositions, index, items) => vertical_conentWrapper.height
-  function updateContentWrapperHeight () {
+  function updateContentWrapperHeight (options = { reset: false }) {
     var wp = middleWrapper ? middleWrapper : innerWrapper;
-    wp.style.height = slidePositions[index + items] - slidePositions[index] + 'px';
+
+    if (options.reset) {
+      setSlidesHeight(wp);
+    }
+
+    if (horizontal || getOption('autoHeight')) {
+      wp.style.height = slidePositions[index + items] - slidePositions[index] + 'px';
+      return;
+    }
+
+    var { height: tallestItemHeight } = getTallestItem().getBoundingClientRect();
+    var heightInPx = `${tallestItemHeight}px`;
+
+    // set the height of the tallest item on the wrapper and all the slides
+    setSlidesHeight(wp, heightInPx);
+    // update slide positions
+    setSlidePositions();
   }
 
   function getPages () {
@@ -2749,7 +2771,7 @@ export var tns = function(options) {
   }
 
   return {
-    version: '2.9.4',
+    version: '2.9.10',
     getInfo: info,
     events: events,
     goTo: goTo,
