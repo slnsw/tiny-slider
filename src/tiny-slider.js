@@ -1916,6 +1916,29 @@ export default function(options) {
     });
   }
 
+  // Update the focusable state of slider contents.
+  function updateSlideFocusable (item, hiding) {
+    var focusable = item.querySelectorAll('a, area, input, select, textarea, button, [tabindex], [contenteditable=true]');
+    var i;
+    if (hiding) {
+      for (i = 0; i < focusable.length; i += 1) {
+        if (focusable[i].getAttribute('tabindex')) {
+          focusable[i].setAttribute('data-tns-tabindex', focusable[i].getAttribute('tabindex'));
+        }
+        focusable[i].setAttribute('tabindex', '-1');
+      }
+    } else {
+      for (i = 0; i < focusable.length; i += 1) {
+        var originalTabIndex = focusable[i].getAttribute('data-tns-tabindex');
+        if (originalTabIndex) {
+          focusable[i].setAttribute('tabindex', originalTabIndex);
+        } else {
+          focusable[i].removeAttribute('tabindex');
+        }
+      }
+    }
+  }
+
   // update slide
   function updateSlideStatus () {
     var range = getVisibleSlideRange(),
@@ -1929,6 +1952,7 @@ export default function(options) {
           removeAttrs(item, ['aria-hidden', 'tabindex']);
           addClass(item, slideActiveClass);
         }
+        updateSlideFocusable(item, false);
       // hide slides
       } else {
         if (!hasAttr(item, 'aria-hidden')) {
@@ -1938,6 +1962,7 @@ export default function(options) {
           });
           removeClass(item, slideActiveClass);
         }
+        updateSlideFocusable(item, true);
       }
     });
   }
