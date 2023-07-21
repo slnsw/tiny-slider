@@ -2683,7 +2683,7 @@
 
       if (hiding) {
         for (i = 0; i < focusable.length; i += 1) {
-          if (focusable[i].getAttribute('tabindex')) {
+          if (focusable[i].getAttribute('tabindex') && focusable[i].getAttribute('tabindex') !== '0') {
             focusable[i].setAttribute('data-tns-tabindex', focusable[i].getAttribute('tabindex'));
           }
 
