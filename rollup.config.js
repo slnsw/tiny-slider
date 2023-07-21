@@ -5,7 +5,8 @@ const config = {
   input: 'src/tiny-slider.js',
   output: {
     file: 'dist/tiny-slider.js',
-    format: 'cjs'
+    format: 'umd',
+    name: 'tns',
   },
   plugins: [
     commonjs({ defaultIsModuleExports: false }),

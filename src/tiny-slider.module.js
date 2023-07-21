@@ -674,6 +674,8 @@ export var tns = function(options) {
     innerWrapper.className = classInner;
     outerWrapper.id = slideId + '-ow';
     innerWrapper.id = slideId + '-iw';
+    outerWrapper.setAttribute('role', 'region');
+    outerWrapper.setAttribute('aria-roledescription', 'carousel');
 
     // set container properties
     if (container.id === '') { container.id = slideId; }
