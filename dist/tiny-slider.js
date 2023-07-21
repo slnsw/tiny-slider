@@ -2683,8 +2683,13 @@
 
       if (hiding) {
         for (i = 0; i < focusable.length; i += 1) {
-          if (focusable[i].getAttribute('tabindex') && focusable[i].getAttribute('tabindex') !== '0') {
-            focusable[i].setAttribute('data-tns-tabindex', focusable[i].getAttribute('tabindex'));
+          var currentTabIndex = focusable[i].getAttribute('tabindex') || '0';
+          var persistentTabIndex = focusable[i].getAttribute('data-tns-tabindex');
+
+          if (currentTabIndex !== '-1') {
+            focusable[i].setAttribute('data-tns-tabindex', currentTabIndex);
+          } else if (!persistentTabIndex) {
+            focusable[i].setAttribute('data-tns-tabindex', '__NEVER__');
           }
 
           focusable[i].setAttribute('tabindex', '-1');
@@ -2694,7 +2699,11 @@
           var originalTabIndex = focusable[i].getAttribute('data-tns-tabindex');
 
           if (originalTabIndex) {
-            focusable[i].setAttribute('tabindex', originalTabIndex);
+            if (originalTabIndex === '__NEVER__') {
+              focusable[i].setAttribute('tabindex', '-1');
+            } else {
+              focusable[i].setAttribute('tabindex', originalTabIndex);
+            }
           } else {
             focusable[i].removeAttribute('tabindex');
           }
