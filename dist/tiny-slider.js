@@ -1648,7 +1648,7 @@
 
       if (hasControls) {
         if (!controlsContainer && (!prevButton || !nextButton)) {
-          outerWrapper.insertAdjacentHTML(getInsertPosition(options.controlsPosition), '<div class="tns-controls" aria-label="Carousel Navigation" tabindex="0"><button type="button" data-controls="prev" tabindex="-1" aria-controls="' + slideId + '">' + controlsText[0] + '</button><button type="button" data-controls="next" tabindex="-1" aria-controls="' + slideId + '">' + controlsText[1] + '</button></div>');
+          outerWrapper.insertAdjacentHTML(getInsertPosition(options.controlsPosition), '<div class="tns-controls" role="group" aria-label="Carousel Navigation" tabindex="0"><button type="button" data-controls="prev" tabindex="-1" aria-label="Previous" aria-controls="' + slideId + '">' + controlsText[0] + '</button><button type="button" data-controls="next" tabindex="-1" aria-label="Next" aria-controls="' + slideId + '">' + controlsText[1] + '</button></div>');
           controlsContainer = outerWrapper.querySelector('.tns-controls');
         }
 
